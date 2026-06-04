@@ -338,7 +338,7 @@
             background: var(--paper);
             border-radius: 25px;
             padding: 1px 60px 0px;
-            min-height: 1200px;
+            min-height: auto;
             position: relative;
             isolation: isolate;
             box-shadow:
@@ -359,10 +359,10 @@
             border-radius: inherit;
             pointer-events: none;
             box-shadow:
-                inset 0 0 200px rgb(8, 33, 224,1),
-                inset 0 0 120px rgba(4,31,92,1),
-                inset 0 0 220px rgba(0,118,255,1),
-                inset 0 0 300px rgba(0,20,80,1);
+                inset 0 0 200px rgb(3, 26, 58, 1.00),
+                inset 0 0 120px rgba(3, 26, 58, 1.00),
+                inset 0 0 220px rgba(3, 26, 58, 1.00),
+                inset 0 0 300px rgba(3, 26, 58, 1.00);
             animation: folhaGlow 5.5s ease-in-out infinite alternate;
             z-index: 0;
         }
@@ -579,6 +579,25 @@
 
         .contact-link:hover {
             opacity: 0.9;
+        }
+
+.inline-link {
+            color: #3f87e0;
+            text-decoration: underline;
+            text-underline-offset: 4px;
+            font-weight: 700;
+        }
+
+        .plans-area {
+            margin-top: 16px;
+        }
+
+        .plans-area p {
+            margin: 0 0 8px 0;
+        }
+
+        .cta-text {
+            margin-top: 18px;
         }
 
         /* animações */
@@ -1020,48 +1039,42 @@
     <div class="menu-label" id="menuLabel" aria-hidden="true">Menu de opções</div>
 
     <nav class="section-nav" aria-label="Navegação das seções" id="siteMenu">
-        <a href="#oque-e-a-blue-castle">Blue Castle</a>
-        <a href="#valores">Valores</a>
-        <a href="#sua-forma-de-ensino">Ensino</a>
-        <a href="#seus-profissionais">Professor</a>
-        <a href="#seus-parceiros">Parceiros</a>
-        <a href="#chamado-para-a-blue-castle">Chamado</a>
+        <a href="#visao-e-valores">Visão e Valores</a>
+        <a href="#sua-forma-de-ensino">Metodologia de Ensino</a>
+        <a href="#seus-profissionais">Professor e Fundador</a>
+        <a href="#seus-parceiros">Projetos Externos</a>
+        <a href="#chamado-para-a-blue-castle">Chamado para Blue Castle</a>
         <a href="#contato">Contato</a>
     </nav>
 
     <div class="folha">
-        <div class="secao esquerda" id="oque-e-a-blue-castle">
-            <h2>O que é a Blue Castle?</h2>
+        <div class="secao esquerda" id="visao-e-valores">
+            <h2>Visão e Valores</h2>
             <div class="section-content">
                 <div class="section-text">
                     <p>
-                        Na Blue Castle, acreditamos que aprender inglês é muito mais do que memorizar regras:
-                        é desenvolver confiança, ampliar horizontes e saber aplicar o idioma de forma prática no dia a dia.
+                        A Blue Castle nasce com o propósito de ensinar inglês de forma clara, humana e eficiente,
+                        unindo comunicação prática, acompanhamento próximo e materiais pensados para a evolução real do aluno.
                     </p>
                     <p>
-                        Nossas aulas para adultos são construídas com foco em comunicação real, clareza de objetivos
-                        e progressão consistente, sempre com materiais autorais e uma metodologia fundamentada em
-                        boas práticas internacionais de ensino.
-                    </p>
-                </div>
-            </div>
-        </div>
-
-        <div class="secao direita" id="valores">
-            <h2>Valores</h2>
-            <div class="section-content">
-                <div class="section-text">
-                    <p>
-                        A Blue Castle nasce de valores que sustentam cada aula, cada material e cada orientação dada ao aluno.
+                        Nosso trabalho valoriza organização, transparência e constância, para que cada etapa do aprendizado
+                        seja segura, objetiva e alinhada à realidade de quem estuda conosco.
                     </p>
 
-                    <ul class="method-list">
-                        <li><strong>Planos por pacotes mensais:</strong> organização clara do seu progresso, com estrutura contínua e acompanhamento real.</li>
-                        <li><strong>Sem taxas adicionais:</strong> transparência total, sem cobranças ocultas ou surpresas ao longo do processo.</li>
-                    </ul>
+                    <div class="plans-area">
+                        <p><strong>Planos disponíveis:</strong></p>
+                        <ul class="method-list">
+                            <li><strong>Plano 1:</strong> ****</li>
+                            <li><strong>Plano 2:</strong> ****</li>
+                            <li><strong>Plano 3:</strong> ****</li>
+                            <li><strong>Plano 4:</strong> ****</li>
+                            <li><strong>Plano 5:</strong> ****</li>
+                        </ul>
+                    </div>
 
-                    <p>
-                        Mais do que ensinar inglês, buscamos oferecer uma experiência justa, acessível e alinhada com a evolução real do aluno.
+                    <p class="cta-text">
+                        Quer testar se faz sentido para você? Entre em
+                        <a href="#contato" class="inline-link">contato</a> e agende sua reunião de análise de necessidades e sua aula demonstrativa gratuita.
                     </p>
                 </div>
 
@@ -1072,7 +1085,7 @@
         </div>
 
         <div class="secao esquerda" id="sua-forma-de-ensino">
-            <h2>Metodos de Ensino</h2>
+            <h2>Metodologia de Ensino</h2>
             <div class="section-content">
                 <div class="section-text">
                     <ul class="method-list">
@@ -1091,7 +1104,7 @@
         </div>
 
         <div class="secao direita" id="seus-profissionais">
-            <h2>Professor</h2>
+            <h2>Professor Fundador</h2>
             <div class="section-content">
                 <div class="section-text">
                     <p>
@@ -1160,7 +1173,7 @@
                         <div class="contact-icon">IG</div>
                         <div class="contact-text">
                             <div class="contact-label">Instagram</div>
-                            <a class="contact-link" href="#" target="_blank" rel="noopener noreferrer">@BLUECASTLE100</a>
+                            <a class="contact-link" href="https://www.instagram.com/bluecastle100/" target="_blank" rel="noopener noreferrer">@BLUECASTLE100</a>
                         </div>
                     </div>
 
@@ -1176,7 +1189,7 @@
                         <div class="contact-icon">☎</div>
                         <div class="contact-text">
                             <div class="contact-label">Telefone</div>
-                            <a class="contact-link" href="tel:+5511916852602">+55 (11) 92560-3630</a>
+                            <a class="contact-link" href="https://web.whatsapp.com/send?phone=5511925603630" target="_blank" rel="noopener noreferrer">+55 (11) 92560-3630</a>
                         </div>
                     </div>
                 </div>
