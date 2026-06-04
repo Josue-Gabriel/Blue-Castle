@@ -8,6 +8,7 @@
     <style>
         :root {
             --blue-main: #3f87e0;
+            --blue-light: #8ec8ff;
             --blue-dark: #081733;
             --blue-shadow: #0a1440;
             --panel-dark: #0d2a63;
@@ -151,71 +152,183 @@
             animation: logoGrow 0.7s ease-out 1.95s forwards;
         }
 
-        /* botões de navegação */
-        .section-nav {
-            width: min(1100px, 92vw);
-            margin: 8px auto 18px;
-            display: flex;
-            flex-wrap: wrap;
+        /* menu fixo */
+        .menu-toggle {
+            position: fixed;
+            top: 18px;
+            right: 18px;
+            width: 52px;
+            height: 52px;
+            border: none;
+            border-radius: 16px;
+            background: linear-gradient(180deg, rgba(142, 200, 255, 0.98), rgba(120, 185, 245, 0.98));
+            color: #0a1440;
+            z-index: 80;
+            display: inline-flex;
+            align-items: center;
             justify-content: center;
-            gap: 18px 26px;
-            padding: 22px 16px 14px;
-            position: relative;
-            z-index: 20;
+            cursor: pointer;
+            box-shadow: 0 10px 22px rgba(0, 0, 0, 0.28);
+            padding: 0;
         }
 
-        .section-nav::before {
-            content: "";
-            position: absolute;
-            left: 5%;
-            right: 5%;
-            top: 50%;
-            height: 4px;
-            transform: translateY(-50%);
-            background: linear-gradient(
-                90deg,
-                transparent,
-                rgba(13, 42, 99, 0.98),
-                rgba(13, 42, 99, 0.98),
-                transparent
-            );
-            box-shadow: 0 0 8px rgba(13, 42, 99, 0.35);
-            z-index: 0;
+        .menu-toggle .icon span {
+            display: block;
+            width: 22px;
+            height: 2.8px;
+            margin: 4px auto;
+            background: #0a1440;
+            border-radius: 999px;
+        }
+
+        .menu-toggle:hover .icon span {
+            background: #ffffff;
+            box-shadow:
+                0 0 8px #8ec8ff,
+                0 0 15px #8ec8ff;
+        }
+
+        .menu-toggle .icon {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 1px;
+        }
+
+        .menu-label {
+            position: fixed;
+            top: 25px;
+            right: 78px;
+            z-index: 79;
+            color: #eaf6ff;
+            background: rgba(8, 23, 51, 0.72);
+            border: 1px solid rgba(142, 200, 255, 0.28);
+            border-radius: 999px;
+            padding: 10px 16px;
+            font-family: "Trebuchet MS", Arial, sans-serif;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 0.03em;
+            white-space: nowrap;
+            box-shadow: 0 8px 18px rgba(0,0,0,0.26);
+            opacity: 0;
+            transform: translateX(28px);
+            pointer-events: none;
+        }
+
+        .menu-label.show {
+            animation: menuLabelIn 0.7s ease forwards;
+        }
+
+        .menu-label.hide {
+            animation: menuLabelOut 0.7s ease forwards;
+        }
+
+        /* menu de tópicos */
+        .section-nav {
+            position: fixed;
+            top: 84px;
+            right: 18px;
+            width: min(290px, calc(100vw - 36px));
+            padding: 18px 14px;
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+            gap: 12px;
+            z-index: 70;
+            max-height: calc(100vh - 110px);
+            overflow-y: auto;
+            scrollbar-width: none;
+            background: linear-gradient(180deg, rgba(13, 42, 99, 0.96), rgba(8, 23, 51, 0.98));
+            border: 1px solid rgba(142, 200, 255, 0.22);
+            border-radius: 22px;
+            box-shadow:
+                0 18px 36px rgba(0, 0, 0, 0.36),
+                0 0 24px rgba(0, 157, 255, 0.12);
+            opacity: 0;
+            transform: translateY(-10px) scale(0.96);
+            pointer-events: none;
+            transition: opacity 0.28s ease, transform 0.28s ease;
+        }
+
+        .section-nav.active {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            pointer-events: auto;
+        }
+
+        .section-nav::-webkit-scrollbar {
+            display: none;
         }
 
         .section-nav a {
             position: relative;
-            z-index: 1;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            padding: 10px 16px;
-            min-height: 40px;
-            border-radius: 999px;
-            background: linear-gradient(180deg, rgba(13, 42, 99, 0.96), rgba(10, 25, 62, 0.96));
-            color: #fff;
+            overflow: hidden;
+            display: block;
+            width: 100%;
+            padding: 12px 14px;
+            border-radius: 16px;
+            background: rgba(142, 200, 255, 0.14);
+            color: #ffffff;
             text-decoration: none;
             font-family: "Trebuchet MS", Arial, sans-serif;
-            font-size: 14px;
+            font-size: 15px;
             font-weight: 700;
             letter-spacing: 0.02em;
-            border: 1px solid rgba(255, 255, 255, 0.18);
-            box-shadow:
-                0 8px 18px rgba(0, 0, 0, 0.22),
-                0 0 0 3px rgba(255, 255, 255, 0.03) inset;
-            transition: transform 0.18s ease, background 0.18s ease, box-shadow 0.18s ease;
+            border: 1px solid rgba(142, 200, 255, 0.26);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.14);
+            opacity: 0;
+            transform: translateX(18px);
+            transition:
+                opacity 0.25s ease,
+                transform 0.25s ease,
+                filter 0.2s ease,
+                box-shadow 0.2s ease;
+            transition-delay: var(--delay, 0ms);
+        }
+
+        .section-nav a::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -120%;
+
+            width: 70%;
+            height: 100%;
+
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(255,255,255,0.5),
+                transparent
+            );
+
+            transition: 0.6s;
+        }
+
+        .section-nav a:hover::before {
+            left: 150%;
+        }
+
+        .section-nav.active a {
+            transform: translateX(0);
+            animation: menuItemIn 0.35s ease forwards;
         }
 
         .section-nav a:hover {
-            transform: translateY(-2px);
-            background: linear-gradient(180deg, rgba(63, 135, 224, 0.98), rgba(31, 96, 187, 0.98));
+            transform: translateX(-4px);
+
             box-shadow:
-                0 10px 22px rgba(0, 0, 0, 0.24),
-                0 0 14px rgba(63, 135, 224, 0.28);
+                0 0 10px rgba(142,200,255,0.8),
+                0 0 20px rgba(63,135,224,0.7),
+                0 0 35px rgba(13,42,99,0.8);
+
+            filter: brightness(1.12);
         }
 
         .section-nav a:active {
-            transform: translateY(0);
+            transform: translateX(0) scale(0.99);
         }
 
         /* folha */
@@ -224,11 +337,14 @@
             margin: 18px auto 120px auto;
             background: var(--paper);
             border-radius: 25px;
-            padding: 80px 60px 0px;
+            padding: 1px 60px 0px;
             min-height: 1200px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
             position: relative;
-
+            isolation: isolate;
+            box-shadow:
+                0 30px 70px rgba(0,0,0,0.55),
+                0 0 50px rgba(0,40,120,1),
+                0 0 0 1px rgba(255,255,255,0.28) inset;
             opacity: 0;
             transform: translateY(-60px) scale(0.92) rotateX(75deg);
             transform-origin: center top;
@@ -236,73 +352,83 @@
             perspective: 1200px;
         }
 
+        .folha::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            pointer-events: none;
+            box-shadow:
+                inset 0 0 200px rgb(8, 33, 224,1),
+                inset 0 0 120px rgba(4,31,92,1),
+                inset 0 0 220px rgba(0,118,255,1),
+                inset 0 0 300px rgba(0,20,80,1);
+            animation: folhaGlow 5.5s ease-in-out infinite alternate;
+            z-index: 0;
+        }
+
+        .folha::after {
+            content: "";
+            position: absolute;
+            inset: -12px;
+            border-radius: inherit;
+            pointer-events: none;
+            box-shadow:
+                0 26px 52px rgba(0,0,0,0.50),
+                0 0 24px rgba(0, 220, 255, 0.12);
+            filter: blur(8px);
+            z-index: -1;
+        }
+
         /* seção */
         .secao {
             position: relative;
-            margin: 120px 0 90px 0;
+            margin: 110px 0 82px 0;
             display: flex;
             flex-direction: column;
             gap: 18px;
-            scroll-margin-top: 24px;
+            scroll-margin-top: 92px;
+            z-index: 1;
         }
 
         /* título */
         .secao h2 {
             position: relative;
-            display: inline-block;
+            display: inline-flex;
+            align-items: center;
             width: fit-content;
+            max-width: 100%;
             margin: 0;
             color: white;
             font-size: clamp(20px, 1.9vw + 10px, 34px);
             font-family: "Trebuchet MS", Arial, sans-serif;
             font-weight: 700;
             white-space: nowrap;
-            padding: 16px 60px;
-            background: var(--blue-main);
+            padding: 16px 34px;
+            background: linear-gradient(180deg, #4b95ea, var(--blue-main));
             z-index: 2;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            box-shadow:
+                0 8px 18px rgba(0,0,0,0.22),
+                0 0 18px rgba(142, 200, 255, 0.16);
             text-shadow:
-                -6px 4px 10px rgba(0, 0, 30, 1),
-                -12px 8px 18px rgba(0, 0, 60, 0.9),
-                -18px 12px 26px rgba(0, 0, 20, 0.8);
+                0 2px 4px rgba(0, 0, 20, 0.75),
+                0 0 16px rgba(0, 0, 40, 0.55);
             clip-path: polygon(
                 0% 50%,
-                5% 0%,
+                6% 0%,
                 95% 0%,
                 100% 50%,
                 95% 100%,
-                5% 100%
+                6% 100%
             );
-        }
-
-        .secao h2::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            width: 70px;
-            background: var(--blue-main);
-            z-index: -1;
         }
 
         .esquerda h2 {
             align-self: flex-start;
-            margin-left: -90px;
-            padding-right: 130px;
-        }
-
-        .esquerda h2::before {
-            left: -70px;
         }
 
         .direita h2 {
             align-self: flex-end;
-            margin-right: -90px;
-            padding-left: 130px;
-        }
-
-        .direita h2::before {
-            right: -70px;
         }
 
         /* conteúdo das seções */
@@ -378,20 +504,22 @@
         /* contato */
         .contact-section {
             position: relative;
-            margin-top: 80px;
+            margin-top: 32px;
             margin-bottom: 0;
         }
 
         .contact-panel {
-            margin-top: 150px;
+            margin-top: 18px;
             margin-left: -60px;
             margin-right: -60px;
-            margin-bottom: -60px;
-            background: #0d2a63;
+            margin-bottom: -68px;
+            background: linear-gradient(180deg, #0d2a63, #081733);
             border-radius: 0 0 25px 25px;
-            padding: 40px 60px;
+            padding: 42px 60px 54px;
             color: white;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.16);
+            box-shadow:
+                0 12px 34px rgba(0,0,0,0.22),
+                0 -1px 0 rgba(255,255,255,0.08) inset;
         }
 
         .contact-grid {
@@ -406,8 +534,8 @@
             gap: 16px;
             background: rgba(255,255,255,0.08);
             border-radius: 18px;
-            padding: 18px;
-            min-height: 92px;
+            padding: 20px;
+            min-height: 96px;
             min-width: 0;
         }
 
@@ -457,6 +585,17 @@
         @keyframes openLeftCover {
             0%   { transform: rotateY(0deg); }
             100% { transform: rotateY(-120deg); }
+        }
+
+        @keyframes menuItemIn {
+            from {
+                opacity: 0;
+                transform: translateX(18px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
         }
 
         @keyframes openRightCover {
@@ -524,19 +663,47 @@
             }
         }
 
+        @keyframes folhaGlow {
+            0% {
+                box-shadow:
+                    inset 0 0 26px rgba(44, 255, 255, 0.22),
+                    inset 0 0 60px rgba(7, 34, 93, 0.34),
+                    inset 0 0 110px rgba(0, 132, 255, 0.10);
+            }
+            100% {
+                box-shadow:
+                    inset 0 0 36px rgba(100, 235, 255, 0.40),
+                    inset 0 0 82px rgba(3, 24, 72, 0.62),
+                    inset 0 0 140px rgba(0, 102, 255, 0.16);
+            }
+        }
+
+        @keyframes menuLabelIn {
+            0% {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes menuLabelOut {
+            0% {
+                opacity: 1;
+                transform: translateX(0);
+            }
+            100% {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+        }
+
         /* responsivo */
         @media (max-width: 1200px) {
             .folha {
-                width: 94vw;
-                padding: 72px 42px 54px;
-            }
-
-            .secao h2 {
-                font-size: 30px;
-            }
-
-            .section-text {
-                font-size: 17px;
+                width: min(1100px, 94vw);
             }
         }
 
@@ -572,41 +739,34 @@
             }
 
             .contact-panel {
-                padding: 28px 18px 20px;
-            }
-
-            .section-nav {
-                gap: 14px 16px;
-            }
-
-            .section-nav a {
-                font-size: 13px;
-                padding: 9px 12px;
+                padding: 28px 18px 24px;
             }
         }
 
-        @media (max-width: 768px) {
+        @media (max-width: 979px) {
             .logo {
                 padding: 6px 0 0;
             }
 
+            .menu-toggle {
+                top: 14px;
+                right: 14px;
+                width: 48px;
+                height: 48px;
+            }
+
+            .menu-label {
+                top: 19px;
+                right: 72px;
+                padding: 9px 14px;
+                font-size: 12px;
+            }
+
             .section-nav {
-                width: 96vw;
-                margin: 8px auto 14px;
-                justify-content: flex-start;
-                overflow-x: auto;
-                flex-wrap: nowrap;
-                padding: 0 2px 8px;
-                scrollbar-width: thin;
-            }
-
-            .section-nav::before {
-                display: none;
-            }
-
-            .section-nav a {
-                flex: 0 0 auto;
-                white-space: nowrap;
+                top: 74px;
+                right: 12px;
+                width: min(285px, calc(100vw - 24px));
+                max-height: calc(100vh - 96px);
             }
 
             .folha {
@@ -633,16 +793,94 @@
                 align-self: stretch;
             }
 
-            .secao h2::before {
-                display: none;
+            .section-content {
+                padding-top: 0;
             }
 
-            .esquerda h2,
-            .direita h2 {
-                margin-left: 0;
-                margin-right: 0;
+            .section-image {
+                min-height: 170px;
+                font-size: 12px;
+                letter-spacing: 0.12em;
+            }
+
+            .method-list {
                 padding-left: 18px;
-                padding-right: 18px;
+            }
+
+            .method-list li {
+                margin: 8px 0;
+            }
+
+            .contact-section {
+                margin-top: 30px;
+            }
+
+            .contact-panel {
+                margin-left: -18px;
+                margin-right: -18px;
+                padding: 24px 18px 20px;
+                border-radius: 0 0 20px 20px;
+                margin-bottom: -80px;
+            }
+
+            .contact-item {
+                padding: 16px;
+                min-height: 84px;
+            }
+
+            .contact-link {
+                font-size: 16px;
+            }
+        }
+
+        @media (max-width: 770px) {
+            .logo {
+                padding: 6px 0 0;
+            }
+
+            .menu-toggle {
+                top: 14px;
+                right: 14px;
+                width: 48px;
+                height: 48px;
+            }
+
+            .menu-label {
+                top: 19px;
+                right: 72px;
+                padding: 9px 14px;
+                font-size: 12px;
+            }
+
+            .section-nav {
+                top: 74px;
+                right: 12px;
+                width: min(285px, calc(100vw - 24px));
+                max-height: calc(100vh - 96px);
+            }
+
+            .folha {
+                width: 96vw;
+                padding: 54px 18px 34px;
+                border-radius: 20px;
+            }
+
+            .secao {
+                margin: 60px 0 44px;
+                gap: 12px;
+            }
+
+            .secao h2 {
+                display: block;
+                width: 100%;
+                max-width: 100%;
+                margin: 0;
+                font-size: 20px;
+                padding: 13px 18px;
+                clip-path: none;
+                white-space: normal;
+                text-align: left;
+                align-self: stretch;
             }
 
             .section-content {
@@ -664,14 +902,15 @@
             }
 
             .contact-section {
-                margin-top: 40px;
+                margin-top: 30px;
             }
 
             .contact-panel {
                 margin-left: -18px;
                 margin-right: -18px;
-                padding: 28px 18px;
+                padding: 24px 18px 20px;
                 border-radius: 0 0 20px 20px;
+                margin-bottom: -80px;
             }
 
             .contact-item {
@@ -713,7 +952,11 @@
             }
 
             .contact-panel {
-                padding: 18px 12px 14px;
+                margin-left: -18px;
+                margin-right: -18px;
+                padding: 24px 18px 20px;
+                border-radius: 0 0 20px 20px;
+                margin-bottom: -80px;
             }
 
             .contact-item {
@@ -739,13 +982,13 @@
             }
         }
     </style>
+
 </head>
 
 <body>
     <div class="background"></div>
     <div class="overlay"></div>
 
-    <!-- animação inicial -->
     <div class="intro">
         <div class="book">
             <div class="cover left"></div>
@@ -766,12 +1009,22 @@
         <img src="Imagens/Logo.png" alt="Logo Blue Castle">
     </div>
 
-    <nav class="section-nav" aria-label="Navegação das seções">
-        <a href="#oque-e-a-blue-castle">O que é a Blue Castle</a>
-        <a href="#seus-profissionais">Seus profissionais</a>
-        <a href="#sua-forma-de-ensino">Sua forma de ensino</a>
-        <a href="#seus-parceiros">Seus parceiros</a>
+    <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu" aria-expanded="false">
+        <span class="icon" aria-hidden="true">
+            <span></span>
+            <span></span>
+            <span></span>
+        </span>
+    </button>
+
+    <div class="menu-label" id="menuLabel" aria-hidden="true">Menu de opções</div>
+
+    <nav class="section-nav" aria-label="Navegação das seções" id="siteMenu">
+        <a href="#oque-e-a-blue-castle">Blue Castle</a>
         <a href="#valores">Valores</a>
+        <a href="#sua-forma-de-ensino">Ensino</a>
+        <a href="#seus-profissionais">Professor</a>
+        <a href="#seus-parceiros">Parceiros</a>
         <a href="#chamado-para-a-blue-castle">Chamado</a>
         <a href="#contato">Contato</a>
     </nav>
@@ -791,82 +1044,10 @@
                         boas práticas internacionais de ensino.
                     </p>
                 </div>
-                <div class="section-image">
-                    <img src="Imagens/Primeira_imagem.png" alt="Imagem da seção Blue Castle">
-                </div>
             </div>
         </div>
 
-        <div class="secao direita" id="seus-profissionais">
-            <h2>Seus profissionais</h2>
-            <div class="section-content">
-                <div class="section-text">
-                    <p>
-                        Meu nome é Gabriel Castro, professor de inglês especializado no ensino para adultos,
-                        com certificação internacional TEFL e graduação em Letras pela USP.
-                    </p>
-                    <p>
-                        Minha trajetória inclui uma experiência marcante no Centro de Preparação de Oficiais da Reserva
-                        de São Paulo (CPOR-SP), que inspirou a criação da Blue Castle. O nome da marca faz referência
-                        ao castelo azul turquesa da engenharia militar, símbolo de disciplina, estratégia e compromisso.
-                    </p>
-                    <p>
-                        Na Blue Castle, minha missão é oferecer aulas dinâmicas, completas e personalizadas,
-                        sempre orientadas para o desenvolvimento real da fluência e da autonomia do aluno.
-                    </p>
-                </div>
-                <div class="section-image">
-                    <img src="Imagens/Segunda_imagem.png" alt="">
-                </div>
-            </div>
-        </div>
-
-        <div class="secao esquerda" id="sua-forma-de-ensino">
-            <h2>Sua forma de ensino</h2>
-            <div class="section-content">
-                <div class="section-text">
-                    <ul class="method-list">
-                        <li><strong>Aulas particulares:</strong> atenção total às suas necessidades e objetivos.</li>
-                        <li><strong>Planejamento personalizado:</strong> o conteúdo acompanha seu ritmo e seu contexto.</li>
-                        <li><strong>Metodologia comunicativa:</strong> prioridade para a fluência e o uso prático da língua.</li>
-                        <li><strong>Material didático exclusivo e gratuito:</strong> desenvolvido especialmente pela Blue Castle.</li>
-                        <li><strong>Aulas 100% online:</strong> mais flexibilidade para a rotina do aluno.</li>
-                        <li><strong>Sem promessas enganosas:</strong> aqui existe processo, acompanhamento e evolução real.</li>
-                    </ul>
-                </div>
-                <div class="section-image">
-                    <img src="Imagens/Terceira_imagem.png" alt="">
-                </div>
-            </div>
-        </div>
-
-        <div class="secao direita" id="seus-parceiros">
-            <h2>Seus parceiros</h2>
-            <div class="section-content">
-                <div class="section-text">
-                    <p>
-                        A Blue Castle valoriza parcerias que fortalecem o aprendizado e ampliam o alcance do conhecimento.
-                        Cada colaboração contribui para tornar a experiência mais rica, prática e conectada com a realidade.
-                    </p>
-                    <p>
-                        <strong>Exército Brasileiro e CPOR-SP</strong> — referência histórica e simbólica ligada à identidade da marca
-                        e à ideia de disciplina e formação.
-                    </p>
-                    <p>
-                        <strong>Hello Inglês Online</strong> — conexão com o aprendizado digital, acessível e contínuo.
-                    </p>
-                    <p>
-                        <strong>Workshop ETEC Antônio Furlan</strong> — iniciativa voltada ao conceito de “aprender a aprender inglês”,
-                        com foco em autonomia e método.
-                    </p>
-                </div>
-                <div class="section-image">
-                    <img src="Imagens/Quarta_imagem.png" alt="">
-                </div>
-            </div>
-        </div>
-
-        <div class="secao esquerda" id="valores">
+        <div class="secao direita" id="valores">
             <h2>Valores</h2>
             <div class="section-content">
                 <div class="section-text">
@@ -886,6 +1067,68 @@
 
                 <div class="section-image">
                     <img src="Imagens/Sexta_imagem.png" alt="">
+                </div>
+            </div>
+        </div>
+
+        <div class="secao esquerda" id="sua-forma-de-ensino">
+            <h2>Metodos de Ensino</h2>
+            <div class="section-content">
+                <div class="section-text">
+                    <ul class="method-list">
+                        <li><strong>Aulas particulares:</strong> atenção total às suas necessidades e objetivos.</li>
+                        <li><strong>Planejamento personalizado:</strong> o conteúdo acompanha seu ritmo e seu contexto.</li>
+                        <li><strong>Metodologia comunicativa:</strong> prioridade para a fluência e o uso prático da língua.</li>
+                        <li><strong>Material didático exclusivo e gratuito:</strong> desenvolvido especialmente pela Blue Castle.</li>
+                        <li><strong>Aulas 100% online:</strong> mais flexibilidade para a rotina do aluno.</li>
+                        <li><strong>Sem promessas enganosas:</strong> aqui existe processo, acompanhamento e evolução real.</li>
+                    </ul>
+                </div>
+                <div class="section-image">
+                    <img src="Imagens/Terceira_imagem.png" alt="">
+                </div>
+            </div>
+        </div>
+
+        <div class="secao direita" id="seus-profissionais">
+            <h2>Professor</h2>
+            <div class="section-content">
+                <div class="section-text">
+                    <p>
+                        Gabriel Castro, professor de inglês especializado no ensino para adultos,
+                        com certificação internacional TEFL e graduação em Letras pela USP.
+                    </p>
+                    <p>
+                        Na Blue Castle, minha missão é oferecer aulas dinâmicas, completas e personalizadas,
+                        sempre orientadas para o desenvolvimento real da fluência e da autonomia do aluno.
+                    </p>
+                </div>
+                <div class="section-image">
+                    <img src="Imagens/Segunda_imagem.png" alt="">
+                </div>
+            </div>
+        </div>
+
+        <div class="secao esquerda" id="seus-parceiros">
+            <h2>Projetos Externos</h2>
+            <div class="section-content">
+                <div class="section-text">
+                    <p>
+                        A Blue Castle desenvolve projetos externos com o objetivo de expandir o acesso ao conhecimento e fortalecer a aprendizagem em diferentes contextos.
+                        Cada iniciativa é pensada para tornar o ensino mais próximo da realidade, incentivando autonomia, prática e novas experiências no processo de aprendizado.
+                    </p>
+                    <p>
+                        <strong>Exército Brasileiro e CPOR-SP</strong> — referência histórica e simbólica ligada à identidade da marca.
+                        Nosso profissional de ensino já auxiliou o Exército Brasileiro com atividades didáticas e práticas de inglês,
+                        reforçando a ideia de disciplina, formação e aplicação real do idioma.
+                    </p>
+                    <p>
+                        <strong>Workshop ETEC Antônio Furlan</strong> — iniciativa voltada ao conceito de “aprender a aprender inglês”,
+                        com foco em autonomia e método.
+                    </p>
+                </div>
+                <div class="section-image">
+                    <img src="Imagens/Quarta_imagem.png" alt="">
                 </div>
             </div>
         </div>
@@ -933,12 +1176,61 @@
                         <div class="contact-icon">☎</div>
                         <div class="contact-text">
                             <div class="contact-label">Telefone</div>
-                            <a class="contact-link" href="tel:+5511916852602">(11) 91685-2602 | (11) 91850-7894</a>
+                            <a class="contact-link" href="tel:+5511916852602">+55 (11) 92560-3630</a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+
+    <script>
+        const menuToggle = document.getElementById("menuToggle");
+        const siteMenu = document.getElementById("siteMenu");
+        const menuLabel = document.getElementById("menuLabel");
+        const menuLinks = Array.from(siteMenu.querySelectorAll("a"));
+        const intro = document.querySelector(".intro");
+
+        function openMenu() {
+            siteMenu.classList.add("active");
+            menuToggle.setAttribute("aria-expanded", "true");
+
+            menuLinks.forEach((link, index) => {
+                link.style.animationDelay = `${index * 100}ms`;
+            });
+        }
+
+        function closeMenu() {
+            siteMenu.classList.remove("active");
+            menuToggle.setAttribute("aria-expanded", "false");
+        }
+
+        menuToggle.addEventListener("click", () => {
+            if (siteMenu.classList.contains("active")) {
+                closeMenu();
+            } else {
+                openMenu();
+            }
+        });
+
+        menuLinks.forEach((link) => {
+            link.addEventListener("click", closeMenu);
+        });
+
+        function showMenuLabelSequence() {
+            menuLabel.classList.add("show");
+            setTimeout(() => {
+                menuLabel.classList.remove("show");
+                menuLabel.classList.add("hide");
+            }, 3000);
+        }
+
+        const introDuration = 3800;
+        window.addEventListener("load", () => {
+            window.setTimeout(showMenuLabelSequence, introDuration);
+        });
+    </script>
+
 </body>
 </html>
